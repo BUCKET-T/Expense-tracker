@@ -16,6 +16,8 @@ export default function Login({ onLoginSuccess }) {
 
   const navigate = useNavigate();
 
+  
+
   useEffect(() => {
     document.title = "Log In | E-Tracker";
   }, []);
