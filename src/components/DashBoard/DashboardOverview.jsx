@@ -63,6 +63,10 @@ export default function DashboardOverview() {
   });
 
   useEffect(() => {
+  document.title = "Dashboard Overview | E-Tracker";
+}, []);
+
+  useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
         setIsSearchOpen(false);

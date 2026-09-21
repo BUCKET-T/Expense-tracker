@@ -2,10 +2,15 @@ import React, { useState, useMemo, useContext } from 'react';
 import { TransactionContext } from '../../context/TransactionContext'; 
 import { ThemeContext } from '../../context/ThemeContext';
 import './report.css';
+import { useEffect } from 'react';
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export default function Report() {
+  useEffect(() => {
+  document.title = "Report / Analytics  | E-Tracker";
+}, []);
+
   const { transactions } = useContext(TransactionContext);
   const { isDarkTheme } = useContext(ThemeContext);
 

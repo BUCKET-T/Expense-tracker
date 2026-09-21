@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Operator from './Routing/Operator';
 import { AuthProvider } from './context/AuthContext';
 
+
 const App = () => {
   return (
     <AuthProvider>

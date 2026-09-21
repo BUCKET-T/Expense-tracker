@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css'; 
 import { useNavigate, Link } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
@@ -12,8 +12,13 @@ export default function Login({ onLoginSuccess }) {
   const [shakeError, setShakeError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Log In | E-Tracker";
+  }, []);
 
   const triggerBuzz = (msg) => {
     setError(msg);
@@ -21,10 +26,39 @@ export default function Login({ onLoginSuccess }) {
     setTimeout(() => setShakeError(false), 450);
   };
 
+  // Handle Password Reset Email Trigger
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    setResetSent(false);
+
+    if (!email) {
+      triggerBuzz('Please enter your email address first.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (resetError) throw resetError;
+
+      setResetSent(true);
+    } catch (err) {
+      triggerBuzz(err.message || 'Unable to send password reset email.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Handle standard Email + Password submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setResetSent(false);
     setLoading(true);
 
     try {
@@ -89,6 +123,13 @@ export default function Login({ onLoginSuccess }) {
           </div>
         )}
 
+        {/* Password Reset Confirmation Banner */}
+        {resetSent && !error && (
+          <div className="error-banner" style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', borderColor: '#22c55e', color: '#86efac' }}>
+            Password reset link sent! Check your inbox.
+          </div>
+        )}
+
         {/* Credentials Form */}
         <form onSubmit={handleSubmit} className="login-form">
           
@@ -120,10 +161,19 @@ export default function Login({ onLoginSuccess }) {
               <label className="form-label" htmlFor="password">
                 Password
               </label>
-              <a href="#forgot" className="forgot-password-link">
+              
+              {/* Trigger Password Reset Mail */}
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="forgot-password-link"
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', font: '16px' }}
+                disabled={loading || isSuccess}
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
+            
             <div className="input-icon-wrapper">
               <span className="input-field-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
@@ -185,7 +235,7 @@ export default function Login({ onLoginSuccess }) {
                 Success!
               </>
             ) : loading ? (
-              'Signing In...'
+              'Processing...'
             ) : (
               'Sign In to Dashboard'
             )}

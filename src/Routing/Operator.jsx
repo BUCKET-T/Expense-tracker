@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import {AuthContext } from '../context/AuthContext'; 
 
+
 // All Import for routing
 import LandingPage from '../components/LoginCreds/LandingPage';
 import Login from '../components/LoginCreds/login';
 import NewUser from '../components/LoginCreds/newUser';
+import ResetPassword from '../components/LoginCreds/ResetPassword';
 import Sidebar from '../components/DashBoard/sidebar'; 
 import Settings from '../components/DashBoard/settings';
 import Transaction from '../components/DashBoard/transaction';
@@ -31,6 +33,7 @@ const Operator = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<NewUser />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Protected Dashboard Parent Route */}
         <Route

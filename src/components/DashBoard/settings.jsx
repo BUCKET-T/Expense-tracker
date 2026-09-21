@@ -3,6 +3,10 @@ import supabase from '../../config/supabaseClient';
 import './settings.css';
 
 export default function Settings() {
+  useEffect(() => {
+  document.title = "Settings | E-Tracker";
+}, []);
+
   const [activeTab, setActiveTab] = useState('profile');
   const [userCreds, setUserCreds] = useState({
     fullName: '',

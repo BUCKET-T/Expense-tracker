@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
 import './newUser.css';
+import { useEffect } from 'react';
 
 export default function NewUser({ onRegisterSuccess }) {
     const [fullName, setFullName] = useState('');
@@ -18,6 +19,10 @@ export default function NewUser({ onRegisterSuccess }) {
     const [isSuccess, setIsSuccess] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+      document.title = "Create New Account | E-Tracker";
+    }, []);
 
     const triggerBuzz = (msg) => {
         setError(msg);

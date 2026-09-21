@@ -4,8 +4,14 @@ import './transaction.css';
 import supabase from "../../config/supabaseClient"; // Ensure path is correct!
 import { ThemeContext } from '../../context/ThemeContext';
 import { Moon, Sun } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function Transaction() {
+
+  useEffect(() => {
+  document.title = "Transactions | E-Tracker";
+}, []);
+
   const { transactions, addTransaction, deleteTransaction } = useContext(TransactionContext);
   
   const todayForInput = new Date().toISOString().split('T')[0];
