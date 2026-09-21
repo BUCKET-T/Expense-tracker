@@ -1,0 +1,380 @@
+/* 1. LAYOUT WRAPPER (Centering Engine) */
+.login-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px; 
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #0b1e2d 0%, #183843 50%, #23494a 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+/*  2. THE GLASSMORPHIC CARD (Height Compacted) */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px 32px; 
+  border-radius: 20px;
+  box-sizing: border-box;
+  
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px) saturate(130%);
+  -webkit-backdrop-filter: blur(25px) saturate(130%);
+  
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  
+  animation: cardEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/*  3. HEADER & TYPOGRAPHY */
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px; 
+}
+
+.login-logo-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 8px;
+  width: 36px; 
+  height: 36px;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px; 
+}
+
+.login-title {
+  color: #ffffff;
+  font-size: 24px; 
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.login-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+}
+
+/*4. FORM FIELDS & ACCENT INSIDE LAYOUTS*/
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 14px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.form-label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.forgot-password-link {
+  color: #409eff; 
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* --- 4. FORM FIELDS & ACCENT INSIDE LAYOUTS (High Specificity) --- */
+
+.login-card .form-input {
+  width: 100%;
+  padding: 11px 14px 11px 38px; 
+  border-radius: 10px;
+  box-sizing: border-box;
+  
+  /* Adding !important guarantees the dashboard's white background won't override this */
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important; 
+  
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-card .form-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.login-card .form-input:focus {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Specific autofill rules to prevent Chrome's default overlay */
+.login-card .form-input:-webkit-autofill,
+.login-card .form-input:-webkit-autofill:hover, 
+.login-card .form-input:-webkit-autofill:focus, 
+.login-card .form-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 9999s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px #183843 inset !important; 
+}
+
+
+.input-field-icon {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.password-field {
+  padding-right: 40px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 4px;
+  height: 80%;
+  width: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  padding: 0;
+  z-index: 2;
+}
+
+.password-toggle-btn:hover {
+  color: #ffffff;
+}
+
+
+/* 5. REMEMBER ME INTERACTION LAYOUT */
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 16px 0; 
+}
+
+.checkbox-input {
+  accent-color: #5e5ce6;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  user-select: none;
+  cursor: pointer;
+}
+
+/*  6. MAIN PRIMARY CONNECT ACTION BUTTON */
+.btn-submit {
+  width: 100%;
+  padding: 12px; /* Tapered from 14px */
+  border-radius: 10px;
+  background-color: #5e5ce6; 
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(94, 92, 230, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #4f4dd4;
+  transform: translateY(-1px);
+}
+
+/*  7. GRID SPLIT LINES & SEPARATORS*/
+.divider-line-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0; /* Reduced from 24px */
+  gap: 10px;
+}
+
+.divider-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.divider-text {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 8. SOCIAL OAUTH GRID ROW BUTTONS */
+.oauth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px; 
+}
+
+.btn-oauth {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 9px; /* More compact container sizing */
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-oauth:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* 9. INTERACTIVE CARD FOOTER */
+.login-footer {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  text-align: center;
+}
+
+.signup-redirect-link {
+  color: #ff7675; 
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.signup-redirect-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 10. SUCCESS & ERROR EFFECTS (Append this to the bottom of your file) */
+
+.card-success {
+  border-color: rgba(46, 213, 115, 0.4) !important;
+  box-shadow: 0 0 30px rgba(46, 213, 115, 0.15) !important;
+}
+
+.error-banner {
+  background-color: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  color: #ff4757;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.input-error-style {
+  border-color: rgba(255, 71, 87, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2) !important;
+}
+
+.btn-success {
+  background-color: #2ed573 !important;
+  box-shadow: 0 4px 12px rgba(46, 213, 115, 0.3) !important;
+  animation: successPulse 1.5s infinite;
+  opacity: 1 !important;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-icon {
+  animation: checkmarkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.buzz-vibrate {
+  animation: buzzVibrate 0.4s ease-in-out;
+}
+
+/* --- Keyframe Animations --- */
+
+@keyframes successPulse {
+  0% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(46, 213, 115, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0); }
+}
+
+@keyframes checkmarkPop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes buzzVibrate {
+  0% { transform: translateX(0) rotate(0deg); }
+  15% { transform: translateX(-6px) rotate(-1deg); }
+  30% { transform: translateX(6px) rotate(1deg); }
+  45% { transform: translateX(-4px) rotate(-0.5deg); }
+  60% { transform: translateX(4px) rotate(0.5deg); }
+  75% { transform: translateX(-2px) rotate(-0.25deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}

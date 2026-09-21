@@ -1,0 +1,224 @@
+/* 1. TRANSFORMATIVE FLOATING TOGGLE BUTTON (Light Background Glass Spec) */
+  .sidebar-toggle-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  
+  /* Increased opacity to 0.6 so it's visible against solid white */
+  background-color: rgba(255, 255, 255, 0.6); 
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  
+  /* Swapped to a delicate dark border instead of white */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  z-index: 1100; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: rgba(245, 245, 245, 0.8);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+/* Hamburger wrapper */
+.hamburger-box {
+  width: 20px;
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Individual lines - Crisp charcoal black */
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #1A1A1A; 
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+  opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+  background-color 0.3s ease;
+  transform-origin: center;
+}
+
+/* Morphing states (Hamburger -> X) */
+.sidebar-toggle-btn.is-active .hamburger-line.top {
+  transform: translateY(6px) rotate(45deg);
+  background-color: #d9534f; }
+
+.sidebar-toggle-btn.is-active .hamburger-line.middle {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.sidebar-toggle-btn.is-active .hamburger-line.bottom {
+  transform: translateY(-6px) rotate(-45deg);
+  background-color: #d9534f; 
+}
+
+/*  2. SIDEBAR PANEL (The Frosted Glass Card) */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: 0; 
+  width: 280px;
+  height: 100vh;
+  
+  
+  background-color: rgba(255, 255, 255, 0.12); 
+  backdrop-filter: blur(25px) saturate(130%);
+  -webkit-backdrop-filter: blur(25px) saturate(130%);
+  
+  
+  border-left: 1px solid rgba(255, 255, 255, 0.15); 
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+  
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-container.open {
+  transform: translateX(0); 
+}
+
+/* Subtle backdrop dimming */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 950;
+}
+
+
+/* 3. TYPOGRAPHY & ELEMENTS (Flipped to Dark for High Contrast) */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(207, 201, 201, 0.08); 
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo-box {
+  background-color: #1A1A1A; 
+  color: #ffffff;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-brand-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff; 
+  letter-spacing: 0.5px;
+}
+
+.sidebar-container p {
+  color: #fffdfd; 
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #f3f3f3; 
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Dark color modifications for SVGs inside nav items */
+.nav-item svg {
+  stroke: #ffffff;
+  transition: stroke 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1A1A1A;
+  transform: translateX(2px);
+}
+
+.nav-item:hover svg {
+  stroke: #1A1A1A;
+}
+
+/* Active selection state */
+.nav-item.active {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #1A1A1A;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.nav-item.active svg {
+  stroke: #1A1A1A;
+}
+
+.sidebar-footer {
+  padding: 20px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Stylized placeholder logout button */
+.logout-btn {
+  color: #d9534f; 
+}
+
+.logout-btn svg {
+  stroke: #d9534f;
+}
+
+.logout-btn:hover {
+  background-color: rgba(217, 83, 79, 0.08);
+  color: #c9302c;
+}
+
+.logout-btn:hover svg {
+  stroke: #c9302c;
+}
