@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import {AuthContext } from '../context/AuthContext'; 
-
+import React, { useContext, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; 
+import supabase from '../config/supabaseClient'; // Ensure this points to your Supabase setup
 
 // All Import for routing
 import LandingPage from '../components/LoginCreds/LandingPage';
@@ -13,6 +13,25 @@ import Settings from '../components/DashBoard/settings';
 import Transaction from '../components/DashBoard/transaction';
 import Report from '../components/DashBoard/report';
 import DashboardOverview from '../components/DashBoard/DashboardOverview';
+
+// --- NEW: Intercepts the password recovery token from the email link ---
+function PasswordRecoveryListener() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        navigate('/reset-password');
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate]);
+
+  return null;
+}
 
 // Route Guard Component
 const ProtectedRoute = ({ children }) => {
@@ -28,6 +47,9 @@ const ProtectedRoute = ({ children }) => {
 const Operator = () => {
   return (
     <BrowserRouter>
+      {/* ADDED: Must be inside BrowserRouter to use navigate() */}
+      <PasswordRecoveryListener />
+      
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
